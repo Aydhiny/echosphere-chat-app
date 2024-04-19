@@ -1,17 +1,17 @@
 import { all, takeLatest, put } from 'redux-saga/effects';
 
-function* exampleSaga() {
+function* sendMessageSaga(action: any) {
   try {
-    // Add your saga logic here
+    // Here you can perform any asynchronous operations, e.g., sending message to server
+    yield put({ type: 'SEND_MESSAGE', payload: action.payload });
   } catch (error) {
-    // Handle errors
+    console.error('Error sending message:', error);
   }
 }
 
 function* rootSaga() {
   yield all([
-    takeLatest('EXAMPLE_ACTION', exampleSaga),
-    // Add more sagas here if needed
+    takeLatest('SEND_MESSAGE_REQUEST', sendMessageSaga),
   ]);
 }
 

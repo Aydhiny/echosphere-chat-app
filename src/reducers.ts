@@ -1,24 +1,34 @@
 import { combineReducers } from 'redux';
 
-interface ExampleState {
-  // Define your state shape here
+interface ChatState {
+  messages: string[];
+  currentUser: string;
 }
 
-const initialState: ExampleState = {
-  // Initial state values here
+const initialChatState: ChatState = {
+  messages: [],
+  currentUser: 'Guest', // Default to Guest user
 };
 
-function exampleReducer(state = initialState, action: any): ExampleState {
+function chatReducer(state = initialChatState, action: any): ChatState {
   switch (action.type) {
-    // Add your reducer logic here
+    case 'SEND_MESSAGE':
+      return {
+        ...state,
+        messages: [...state.messages, action.payload],
+      };
+    case 'SET_CURRENT_USER':
+      return {
+        ...state,
+        currentUser: action.payload,
+      };
     default:
       return state;
   }
 }
 
 const rootReducer = combineReducers({
-  example: exampleReducer,
-  // Add more reducers here if needed
+  chat: chatReducer,
 });
 
 export default rootReducer;
